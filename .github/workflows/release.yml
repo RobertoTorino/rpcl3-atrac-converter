@@ -41,13 +41,26 @@ jobs:
             "README.txt",
             "LICENSE"
           )
-
+      
           foreach ($file in @($ahkCompiler, $baseFile, $input)) {
             if (!(Test-Path $file)) {
               Write-Error "Required file not found: $file"
               exit 1
             }
             Write-Host ":: Found: $file"
+          }$requiredFiles = @(
+            $ahkCompiler,
+            $baseFile,
+            $input,
+            "rpcl3_tools\vgmstream-cli.exe"  # 🔍 Add your FileInstall dependencies here
+            )
+            
+            foreach ($file in $requiredFiles) {
+            if (!(Test-Path $file)) {
+          Write-Error ":: Required file not found: $file"
+            exit 1
+          }
+          Write-Host ":: Found: $file"
           }
 
           # --- Compile ---
