@@ -51,14 +51,19 @@ ConvertAt3:
 
     exe := A_ScriptDir . "\rpcl3_tools\vgmstream-cli.exe"
 
-    ; Check if tool exists
+    ; Extract the embedded tool if it doesn't exist
     if (!FileExist(exe)) {
-        status := "Error: Missing vgmstream-cli.exe`r`n"
-        status .= "Please place vgmstream-cli.exe in: " . A_ScriptDir . "\rpcl3_tools\"
-        GuiControl,, Status, %status%
-        MsgBox, 48, Missing Tool, Missing vgmstream-cli.exe`n`nPlace the file in a 'tools' folder next to this script.
-        return
-    }
+        FileCreateDir, %A_ScriptDir%\rpcl3_tools
+        FileInstall, rpcl3_tools\vgmstream-cli.exe, %exe%, 1  ; Overwrite = 1
+
+        ; Check again in case FileInstall failed (e.g., during non-compiled test)
+        if (!FileExist(exe)) {
+            status := "Error: Missing vgmstream-cli.exe`r`n"
+            status .= "Please place vgmstream-cli.exe in: " . A_ScriptDir . "\rpcl3_tools\"
+            GuiControl,, Status, %status%
+            MsgBox, 48, Missing Tool, Missing vgmstream-cli.exe`n`nPlace the file in a 'rpcl3_tools' folder next to this script.
+            return
+        }
 
     ; Check if input file exists
     if (!FileExist(at3Path)) {
