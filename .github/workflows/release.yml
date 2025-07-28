@@ -34,7 +34,7 @@ jobs:
           $output      = "rpcl3ac.exe"
           $icon        = "rpcl3_media\rpcl3_default.ico"
           $toolsFolder = "rpcl3_tools"
-          $zipName     = "rpcl3_release.zip"
+          $zipName     = "rpcl3ac_release.zip"
           $versionTxt  = "version.txt"
           $versionDat  = "version.dat"
           $extraAssets = @(
@@ -114,6 +114,6 @@ jobs:
         with:
           files: |
             rpcl3ac.exe
-            rpcl3_release.zip
+            rpcl3ac_release.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
