@@ -32,7 +32,7 @@ jobs:
           $baseFile    = "ahk\Compiler\Unicode 32-bit.bin"
           $input       = "rpcl3ac.ahk"
           $output      = "rpcl3ac.exe"
-          $icon        = "rpcl3_media\rpcl3.ico"
+          $icon        = "rpcl3_media\default.ico"
           $toolsFolder = "rpcl3_tools"
           $zipName     = "rpcl3_release.zip"
           $versionTxt  = "version.txt"
