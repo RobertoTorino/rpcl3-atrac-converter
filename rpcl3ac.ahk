@@ -55,7 +55,7 @@ ConvertAt3:
     if (!FileExist(exe)) {
         FileCreateDir, %A_ScriptDir%\rpcl3_tools
         FileInstall, rpcl3_tools\vgmstream-cli.exe, %exe%, 1  ; Overwrite = 1
-
+        }
         ; Check again in case FileInstall failed (e.g., during non-compiled test)
         if (!FileExist(exe)) {
             status := "Error: Missing vgmstream-cli.exe`r`n"
