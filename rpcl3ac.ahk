@@ -32,20 +32,20 @@ title := "RPCL3 Atrac Converter - " . Chr(169) . " " . A_YYYY . " - Philip"
 Gui, +AlwaysOnTop
 Gui, Font, s10 q5, Segoe UI
 
-Gui, Add, GroupBox,              x10 y10 w400 h80, Input File
+Gui, Add, GroupBox,              x10 y10 w530 h80, Input File
 Gui, Add, Text,                  x20 y35, AT3 File:
-Gui, Add, Edit, vAt3Path         x20 y55 w300 h25 ReadOnly
-Gui, Add, Button, gBrowseAt3    x330 y54 w70 h25, Browse...
+Gui, Add, Edit, vAt3Path         x20 y55 w510 h25 ReadOnly
+Gui, Add, Button, gBrowseAt3    x460 y30 w70 h25, Browse...
 
-Gui, Add, GroupBox,              x10 y100 w400 h60, Actions
-Gui, Add, Button, gConvertAt3    x20 y125 w100 h25, Convert to WAV
-Gui, Add, Button, gClear        x130 y125 w100 h25, Clear
-Gui, Add, Button, gExit         x240 y125 w100 h25, Exit
+Gui, Add, GroupBox,              x10 y100 w530 h60, Actions
+Gui, Add, Button, gConvertAt3    x20 y125 w110 h25, Convert to WAV
+Gui, Add, Button, gClear        x140 y125 w100 h25, Clear
+Gui, Add, Button, gExit         x250 y125 w100 h25, Exit
 
-Gui, Add, GroupBox,              x10 y170 w400 h100, Status
-Gui, Add, Edit, vStatus          x20 y190 w380 h70 ReadOnly VScroll
+Gui, Add, GroupBox,              x10 y170 w530 h220, Status
+Gui, Add, Edit, vStatus          x20 y190 w510 h190 ReadOnly VScroll
 
-Gui, Show, w420 h280, %title%
+Gui, Show, w550 h400, %title%
 return
 
 BrowseAt3:
