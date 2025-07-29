@@ -1,6 +1,6 @@
 # rpcl3-atrac-converter
-[README.md](README.md)
-Convert .at3 files to .wav
+
+Convert .at3 (Atrac) files to .wav
 
 ![atrac_converter.png](images/atrac_converter.png)          
 
@@ -10,4 +10,5 @@ Convert .at3 files to .wav
 
 
 ![github.png](images/github.png)                    
-**[RobertoTorino](https://github.com/RobertoTorino)**     
+**[RobertoTorino](https://github.com/RobertoTorino)**    
+
