@@ -6,6 +6,26 @@
 #SingleInstance Force
 #NoEnv
 
+
+tempDir := A_Temp . "\rpcl3_tools"
+FileCreateDir, %tempDir%
+
+; --- Install CLI ---
+FileInstall, rpcl3_tools\vgmstream-cli.exe, %tempDir%\vgmstream-cli.exe, 1
+
+; --- Install required DLLs ---
+FileInstall, rpcl3_tools\avcodec-vgmstream-59.dll, %tempDir%\avcodec-vgmstream-59.dll, 1
+FileInstall, rpcl3_tools\avformat-vgmstream-59.dll, %tempDir%\avformat-vgmstream-59.dll, 1
+FileInstall, rpcl3_tools\avutil-vgmstream-57.dll, %tempDir%\avutil-vgmstream-57.dll, 1
+FileInstall, rpcl3_tools\libatrac9.dll, %tempDir%\libatrac9.dll, 1
+FileInstall, rpcl3_tools\libcelt-0061.dll, %tempDir%\libcelt-0061.dll, 1
+FileInstall, rpcl3_tools\libcelt-0110.dll, %tempDir%\libcelt-0110.dll, 1
+FileInstall, rpcl3_tools\libg719_decode.dll, %tempDir%\libg719_decode.dll, 1
+FileInstall, rpcl3_tools\libmpg123-0.dll, %tempDir%\libmpg123-0.dll, 1
+FileInstall, rpcl3_tools\libspeex-1.dll, %tempDir%\libspeex-1.dll, 1
+FileInstall, rpcl3_tools\libvorbis.dll, %tempDir%\libvorbis.dll, 1
+
+
 ; Create GUI for AT3 to WAV converter
 title := "RPCL3 Atrac Converter - " . Chr(169) . " " . A_YYYY . " - Philip"
 
@@ -49,21 +69,21 @@ ConvertAt3:
     SplitPath, at3Path, , dir, , name, ext
     output := dir . "\" . name . "_converted.wav"
 
-    exe := A_ScriptDir . "\rpcl3_tools\vgmstream-cli.exe"
+    ; --- Path to executable ---
+    exe := tempDir . "\vgmstream-cli.exe"
 
-    ; Extract the embedded tool if it doesn't exist
+    ; --- Check fallback in uncompiled mode ---
     if (!FileExist(exe)) {
-        FileCreateDir, %A_ScriptDir%\rpcl3_tools
-        FileInstall, rpcl3_tools\vgmstream-cli.exe, %exe%, 1  ; Overwrite = 1
+        ; In dev mode, fallback to local version
+        exe := A_ScriptDir . "\rpcl3_tools\vgmstream-cli.exe"
+    if (!FileExist(exe)) {
+        status := "Error: Missing vgmstream-cli.exe`r`n"
+        status .= "Please place vgmstream-cli.exe in: " . A_ScriptDir . "\rpcl3_tools\"
+        GuiControl,, Status, %status%
+        MsgBox, 48, Missing Tool, Missing vgmstream-cli.exe`n`nPlace the file in a 'rpcl3_tools' folder next to this script.
+        return
         }
-        ; Check again in case FileInstall failed (e.g., during non-compiled test)
-        if (!FileExist(exe)) {
-            status := "Error: Missing vgmstream-cli.exe`r`n"
-            status .= "Please place vgmstream-cli.exe in: " . A_ScriptDir . "\rpcl3_tools\"
-            GuiControl,, Status, %status%
-            MsgBox, 48, Missing Tool, Missing vgmstream-cli.exe`n`nPlace the file in a 'rpcl3_tools' folder next to this script.
-            return
-        }
+    }
 
     ; Check if input file exists
     if (!FileExist(at3Path)) {
