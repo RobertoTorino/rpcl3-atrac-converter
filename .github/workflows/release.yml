@@ -56,28 +56,33 @@ jobs:
             Write-Host ":: Found: $file"
           }
 
-          # --- Compile ---
-          & $ahkCompiler /in $input /out $output /icon $icon /base $baseFile
-
-          $compiledExe = Join-Path $PWD $output
-          $finalExe    = Join-Path $repoRoot $output
-
-          if ((Test-Path $compiledExe) -and ($compiledExe -ne $finalExe)) {
+            # --- Compile ---
+            Write-Host ":: Compiling with Ahk2Exe..."
+            & $ahkCompiler /in $input /out $output /icon $icon /base $baseFile
+            
+            Start-Sleep -Seconds 2  # Give the file system time to finish
+            
+            $compiledExe = Join-Path $PWD $output
+            $finalExe    = Join-Path $repoRoot $output
+            
+            Write-Host ":: Checking for compiled EXE at $compiledExe"
+            if (Test-Path $compiledExe) {
+            Write-Host ":: Found compiled EXE at $compiledExe"
+            if ($compiledExe -ne $finalExe) {
             Move-Item $compiledExe $finalExe -Force
             Write-Host ":: Moved EXE to $finalExe"
           }
-
-          if (!(Test-Path $finalExe)) {
+          } elseif (Test-Path $finalExe) {
+            Write-Host ":: EXE already at $finalExe"
+          } else {
             $knownGood = "D:\\a\\rpcl3-atrac-converter\\rpcl3-atrac-converter\\rpcl3ac.exe"
             if (Test-Path $knownGood) {
-              Copy-Item $knownGood $finalExe -Force
-              Write-Host ":: Recovered EXE from fallback: $knownGood"
-            }
-          }
-
-          if (!(Test-Path $finalExe)) {
-            Write-Error ":: Build failed — EXE still not found at $finalExe"
+            Copy-Item $knownGood $finalExe -Force
+          Write-Host ":: Recovered EXE from fallback: $knownGood"
+          } else {
+            Write-Error ":: Build failed — EXE still not found at $finalExe or $compiledExe"
             exit 1
+          }
           }
 
           # --- UPX compression ---
