@@ -3,6 +3,6 @@
 /new_builds/rpcl3epLocalBuild_*
 /gh.txt
 /github_release.ps1
-/build.cmd
-/build.ps1
+/build_local.cmd
+/build_local.ps1
 /pc.log

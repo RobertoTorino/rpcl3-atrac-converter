@@ -1,9 +1,1 @@
-CompanyName=@game_play267
-FileDescription=RPCS3 Priority Control Launcher
-FileVersion=%%VERSION%%
-InternalName=RPCS3 Priority Control Launcher
-OriginalFilename=rpcl3.exe
-ProductName=RPCS3 Priority Control Launcher
-ProductVersion=%%VERSION%%
-LegalCopyright=© 2025 Philip
-Comments=Built on 20250728_21 | Git Tag: %%GIT_TAG%%
+﻿v2025.10.17_233448
